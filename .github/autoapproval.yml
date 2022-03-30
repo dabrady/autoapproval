@@ -1,13 +1,8 @@
-_extends: github-settings
+from_owner:
+  - dabrady
 
-from_owner: 
-  - dependabot[bot]
+required_labels: []
 
-required_labels: 
-  - dependencies
+blacklisted_labels: []
 
-blacklisted_labels:
-  - wip
-
-apply_labels:
-  - merge
+apply_labels: []
