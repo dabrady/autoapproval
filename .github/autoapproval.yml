@@ -1,5 +1,4 @@
-_extends: github-settings
-
+registered_app_slug: 'deploy-shepherd'
 from_owner:
   - dabrady
 
