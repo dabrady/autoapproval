@@ -39,6 +39,17 @@ In order to use the bot, the config file should be provided. Config file should 
 
 ---
 
+### registered_app_slug
+**mandatory**
+
+The 'slugged' name you gave to [the GitHub App you registered](https://docs.github.com/en/developers/apps/building-github-apps/creating-a-github-app) this code under. For example, if you named your app "PR Approver", the slugged version would be `pr-approver`.
+```
+registered_app_slug: pr-approver
+```
+This is used by the app to identify actions it has already taken on PRs.
+
+---
+
 ### from_owner
 **mandatory**
 

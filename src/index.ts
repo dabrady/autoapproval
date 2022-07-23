@@ -57,7 +57,7 @@ module.exports = (app: Probot) => {
     }
 
     if (requiredLabelsSatisfied && ownerSatisfied) {
-      const reviews = await getAutoapprovalReviews(context)
+      const reviews = await getAutoapprovalReviews(context, config.registered_app_slug)
 
       if (reviews.length > 0) {
         context.log('PR has already reviews')
@@ -132,11 +132,12 @@ async function enableAutoMerge (context: Context, method: string) {
   })
 }
 
-async function getAutoapprovalReviews (context: Context): Promise<any> {
+async function getAutoapprovalReviews (context: Context, appSlug: string): Promise<any> {
   const pr = context.pullRequest()
   const reviews = await context.octokit.pulls.listReviews(pr)
 
-  const autoapprovalReviews = (reviews.data).filter((item: any) => item.user.login === 'autoapproval[bot]')
+  const fullAppSlug = `${appSlug}[bot]`
+  const autoapprovalReviews = (reviews.data).filter((item: any) => item.user.login === fullAppSlug)
 
   return autoapprovalReviews
 }
