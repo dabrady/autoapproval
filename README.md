@@ -1,7 +1,6 @@
 # autoapproval
 
-[![Build Status](https://github.com/dkhmelenko/autoapproval/actions/workflows/build.yml/badge.svg?branch=master)](https://github.com/dkhmelenko/autoapproval/actions?query=branch%3Amaster)
-[![codecov](https://codecov.io/gh/dkhmelenko/autoapproval/branch/master/graph/badge.svg)](https://codecov.io/gh/dkhmelenko/autoapproval)
+[![Build Status](https://github.com/dabrady/autoapproval/actions/workflows/build.yml/badge.svg?branch=main)](https://github.com/dabrady/autoapproval/actions?query=branch%3Amain)
 
 A GitHub App built with [Probot](https://github.com/probot/probot) for approving pull requests automatically
 
@@ -46,7 +45,7 @@ In order to use the bot, the config file should be provided. Config file should 
 Defines the list of users, whos pull requests should be approved automatically. For example:
 ```
 from_owner:
-  - dkhmelenko
+  - dabrady
   - quongeri
 ```
 Assign an empty array if you want to approve PRs from any user (example: `from_owner: []`).
