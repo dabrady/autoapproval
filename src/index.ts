@@ -57,21 +57,26 @@ module.exports = (app: Probot) => {
     }
 
     if (requiredLabelsSatisfied && ownerSatisfied) {
-      const reviews = await getAutoapprovalReviews(context, config.registered_app_slug)
+      try {
+        const reviews = await getAutoapprovalReviews(context, config.registered_app_slug)
 
-      if (reviews.length > 0) {
-        context.log('PR has already reviews')
-        if (context.payload.action === 'dismissed') {
+        if (reviews.length > 0) {
+          context.log('PR has already reviews')
+          if (context.payload.action === 'dismissed') {
+            await applyAutoMerge(context, prLabels, config.auto_merge_labels, config.auto_rebase_merge_labels, config.auto_squash_merge_labels)
+            approvePullRequest(context)
+            applyLabels(context, config.apply_labels as string[])
+            context.log('Review was dismissed, approve again')
+          }
+        } else {
           await applyAutoMerge(context, prLabels, config.auto_merge_labels, config.auto_rebase_merge_labels, config.auto_squash_merge_labels)
           approvePullRequest(context)
           applyLabels(context, config.apply_labels as string[])
-          context.log('Review was dismissed, approve again')
+          context.log('PR approved first time')
         }
-      } else {
-        await applyAutoMerge(context, prLabels, config.auto_merge_labels, config.auto_rebase_merge_labels, config.auto_squash_merge_labels)
-        approvePullRequest(context)
-        applyLabels(context, config.apply_labels as string[])
-        context.log('PR approved first time')
+      } catch (error) {
+        context.log.fatal(error as object, "Oh noes!")
+        return
       }
     } else {
       // one of the checks failed
